@@ -1,24 +1,19 @@
 #pragma once
 #include "Components.File.hpp"
 #include "Components.EncryptionKind.hpp"
-#include "Services.CryptingHandler.hpp"
+#include "Services.FileEncryptionOperation.hpp"
 
 
 namespace Services {
 	/*
 	Functional class that can encrypt files.
 	*/
-	class Encrypter : public CryptingHandler {
-		using CryptingHandler::CryptingHandler;
+	class Encrypter : public FileEncryptionOperation {
+		using FileEncryptionOperation::FileEncryptionOperation;
 
-		char encrypt_cesar(char);
-		char encrypt_xor(char);
+		char cesarTransform(char, uint8_t) override;
+		char xorTransform(char, uint8_t) override;
 
-	public:
-		/*
-		Encrypt a file given the options specified to the constructor.
-		*/
-		void encrypt();
 	};
 }
 

@@ -37,10 +37,6 @@ namespace Components {
 		*/
 		bool writeChar(char toWrite);
 		/*
-		Return the current file's path on disk.
-		*/
-		const char* getFilePath();
-		/*
 		Return whether the current File object is valid.
 		Invalid File objects cannot be written to nor read from.
 		*/

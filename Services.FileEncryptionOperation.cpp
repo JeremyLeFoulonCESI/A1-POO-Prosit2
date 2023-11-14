@@ -1,11 +1,11 @@
-#include "Services.CryptingHandler.hpp"
+#include "Services.FileEncryptionOperation.hpp"
 #include "HMI.Terminal.hpp"
 #include <iostream>
 
 
 namespace Services {
 
-	CryptingHandler::CryptingHandler(const char* src_filename, const char* dst_filename, uint8_t encryptionKind, uint8_t key) {
+	FileEncryptionOperation::FileEncryptionOperation(bool order, const char* src_filename, const char* dst_filename, uint8_t encryptionKind, uint8_t key) {
 		if (!Components::File::exists(src_filename)) {
 			this->src = nullptr;
 		}
@@ -45,25 +45,44 @@ namespace Services {
 			this->encryption_kind = Components::EncryptionKind::INVALID;
 		}
 		this->key = key;
+		this->order = order;
 	}
-
-	uint8_t CryptingHandler::getKey() {
-		return this->key;
-	}
-	const char* CryptingHandler::getSource() {
-		return this->src->getFilePath();
-	}
-	const char* CryptingHandler::getDestination() {
-		return this->dst->getFilePath();
-	}
-	bool CryptingHandler::isValid() {
+	bool FileEncryptionOperation::isValid() {
 		if (this->encryption_kind == Components::EncryptionKind::INVALID)
 			return 0;
 		if (this->src == nullptr)
 			return 0;
 		return this->src->isValid() && this->dst->isValid();
 	}
-	CryptingHandler::~CryptingHandler() {
+	void FileEncryptionOperation::transform() {
+		if (!this->isValid())
+			return;
+
+		char read;
+		while (1) {
+			if (!this->src->readChar(&read))
+				break;
+			if (this->order) {
+				if ((uint8_t)this->encryption_kind & (uint8_t)Components::EncryptionKind::XOR) {
+					read = this->xorTransform(read, this->key);
+				}
+				if ((uint8_t)this->encryption_kind & (uint8_t)Components::EncryptionKind::CESAR) {
+					read = this->cesarTransform(read, this->key);
+				}
+			}
+			else {
+				if ((uint8_t)this->encryption_kind & (uint8_t)Components::EncryptionKind::XOR) {
+					read = this->cesarTransform(read, this->key);
+				}
+				if ((uint8_t)this->encryption_kind & (uint8_t)Components::EncryptionKind::CESAR) {
+					read = this->xorTransform(read, this->key);
+				}
+			}
+			
+			this->dst->writeChar(read);
+		}
+	}
+	FileEncryptionOperation::~FileEncryptionOperation() {
 		if (this->src) {
 			delete this->src;
 			this->src = nullptr;

@@ -33,11 +33,6 @@ namespace Components {
 		char res = std::fputc(toWrite, this->handle);
 		return res != EOF;
 	}
-	const char* File::getFilePath() {
-		if (!this->isValid())
-			return nullptr;
-		return this->path;
-	}
 	bool File::isValid() {
 		return this->handle != nullptr;
 	}
