@@ -130,9 +130,15 @@
     <ClCompile Include="A1-POO-Prosit2.cpp" />
     <ClCompile Include="Components.EncryptionKind.hpp" />
     <ClCompile Include="Components.File.cpp" />
+    <ClCompile Include="HMI.Terminal.cpp" />
+    <ClCompile Include="Services.CryptingHandler.cpp" />
+    <ClCompile Include="Services.Decrypter.cpp" />
+    <ClCompile Include="Services.Encrypter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components.File.hpp" />
+    <ClInclude Include="HMI.Terminal.hpp" />
+    <ClInclude Include="Services.CryptingHandler.hpp" />
     <ClInclude Include="Services.Decrypter.hpp" />
     <ClInclude Include="Services.Encrypter.hpp" />
   </ItemGroup>

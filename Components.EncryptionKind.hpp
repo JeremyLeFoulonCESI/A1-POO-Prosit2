@@ -3,10 +3,14 @@
 
 
 namespace Components {
+	/*
+	Enumeration describing the kind of encryption to use.
+	*/
 	enum class EncryptionKind : uint8_t {
-		CESAR = 1,
-		XOR = 2,
-		CESAR_XOR = 3,
+		CESAR = 0b01,
+		XOR = 0b10,
+		CESAR_XOR = 0b11,
+		INVALID = 0b100,
 	};
 }
 

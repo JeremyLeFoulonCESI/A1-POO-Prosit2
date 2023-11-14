@@ -24,6 +24,18 @@
     <ClCompile Include="Components.File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Services.Encrypter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Services.Decrypter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Services.CryptingHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HMI.Terminal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components.File.hpp">
@@ -33,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Services.Decrypter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Services.CryptingHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HMI.Terminal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

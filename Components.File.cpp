@@ -1,5 +1,7 @@
 #include "Components.File.hpp"
 
+#pragma warning(disable : 4996)
+
 
 namespace Components {
 	File::File(FILE* fs, const char* filename) {
@@ -12,23 +14,28 @@ namespace Components {
 		this->path = filename;
 	}
 	File* File::create(const char* path) {
-		return new File(std::fopen(path, "bw+"), path);
+		return new File(std::fopen(path, "wb+"), path);
 	}
 	File* File::open(const char* path) {
-		return new File(std::fopen(path, "br+"), path);
+		return new File(std::fopen(path, "rb+"), path);
 	}
 	bool File::readChar(char* out) {
 		if (!this->isValid())
 			return false;
-		char res = std::fgetc(this->handle);
+		int res = std::fgetc(this->handle);
 		if (res == EOF)
 			return false;
-		*out = res;
+		*out = (char)res;
 		return true;
 	}
 	bool File::writeChar(char toWrite) {
 		char res = std::fputc(toWrite, this->handle);
 		return res != EOF;
+	}
+	const char* File::getFilePath() {
+		if (!this->isValid())
+			return nullptr;
+		return this->path;
 	}
 	bool File::isValid() {
 		return this->handle != nullptr;
