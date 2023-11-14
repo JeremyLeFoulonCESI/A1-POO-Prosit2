@@ -1,5 +1,6 @@
 #include "Components.File.hpp"
 
+// ignore deprecation of function 'fopen':
 #pragma warning(disable : 4996)
 
 
